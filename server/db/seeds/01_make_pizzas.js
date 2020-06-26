@@ -12,7 +12,6 @@ exports.seed = function(knex) {
         },
         {
            "name":"Spinach and Cheese",
-           "tags": JSON.stringify(['vegetarian']),
            "description":"Ultra-thin dough, chopped spinach, Mozzarella, soft fresh cheese, cream cheese.",
            "image_url":"/home/tima/Documents/innoscripta-pizza-service-test/public/img/pizzas/spinach-and-cheese.png",
            "id":2
@@ -85,7 +84,6 @@ exports.seed = function(knex) {
         },
         {
            "name":"Margherita",
-           "tags": JSON.stringify(['vegetarian']),
            "description":"Traditional recipe with signature tomato sauce, Mozzarella, oregano and juicy tomatoes",
            "image_url":"/home/tima/Documents/innoscripta-pizza-service-test/public/img/pizzas/margherita.jpg",
            "id":14
@@ -110,7 +108,6 @@ exports.seed = function(knex) {
         },
         {
            "name":"Mexican",
-           "tags":JSON.stringify(['spicy']),
            "description":"Spicy pizza with chicken fillet, tomato sauce, Mozzarella, mushrooms, onions, tomatoes, sweet green pepper and jalapeno pepper",
            "image_url":"/home/tima/Documents/innoscripta-pizza-service-test/public/img/pizzas/mexican.jpg",
            "id":18

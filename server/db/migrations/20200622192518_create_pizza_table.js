@@ -4,7 +4,6 @@ exports.up = function(knex) {
     table.string('name').notNullable();
     table.string('description').notNullable();
     table.string('image_url').notNullable();
-    table.jsonb('tags')
     table.unique('name');
   });
 };
