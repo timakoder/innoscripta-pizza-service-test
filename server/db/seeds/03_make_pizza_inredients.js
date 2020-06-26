@@ -4,7 +4,6 @@ exports.seed = function(knex) {
   return knex('pizza_ingredient').del()
     .then(function () {
       // Inserts seed entries
-      console.log('INSERTING PIZZA INGREDIENT');
       return knex('pizza_ingredient').insert([
         {pizza_id: 1, ingredient_id: 1},
         {pizza_id: 1, ingredient_id: 2},
