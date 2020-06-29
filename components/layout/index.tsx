@@ -1,8 +1,10 @@
 import React from 'react';
-import styles from './layout.module.css';
+import styles from './layout.module.scss';
 import Head from 'next/head';
 import cn from 'classnames';
 import { LayoutProps } from './types';
+import Header from './Header';
+import Footer from './Footer';
 
 const Layout: React.FC<LayoutProps> = ({
   children,
@@ -16,6 +18,10 @@ const Layout: React.FC<LayoutProps> = ({
       content="Innoscripta test project for pizza ordering"
     />
     <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <meta
       property="og:image"
       content={`https://og-image.now.sh/${encodeURI(
         pageTitle
@@ -24,15 +30,11 @@ const Layout: React.FC<LayoutProps> = ({
     <meta name="og:title" content={pageTitle} />
     <meta name="twitter:card" content="summary_large_image" />
   </Head>
-  <header className={styles.header}>
-    HEADER
-  </header>
+  <Header/>
   <main className={styles.main}>
     {children}
   </main>
-  <footer className={styles.footer}>
-    FOOTER
-  </footer>
+  <Footer/>
 </div>
 
 export default Layout;

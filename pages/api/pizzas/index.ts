@@ -14,10 +14,10 @@ const getStringsArrayOrUndefined = (str?: string | string[]): string[] | undefin
   }
 
   if (Array.isArray(str)) {
-    return str;
+    return str.length > 0 ? str : undefined;
   }
 
-  return [str];
+  return str.length > 0 ? [str] : undefined;
 }
 
 type QueryParams = {
@@ -26,8 +26,8 @@ type QueryParams = {
 };
 
 const QueryParamsValidationSchema = {
-  ingredients: Joi.alternatives().try(Joi.string(), Joi.array().items(Joi.string())),
-  tags: Joi.alternatives().try(Joi.string(), Joi.array().items(Joi.string()))
+  ingredients: Joi.alternatives().try(Joi.string().allow(''), Joi.array().allow([]).items(Joi.string())),
+  tags: Joi.alternatives().try(Joi.string().allow(''), Joi.array().allow([]).items(Joi.string()))
 };
 
 export default controllerErrorsHandler<PizzasResponse>(
@@ -38,16 +38,26 @@ export default controllerErrorsHandler<PizzasResponse>(
     async (req: ValidatedNextApiRequest<QueryParams, {}>, res: NextApiResponse<PizzasResponse>) => {
       const ingredients = getStringsArrayOrUndefined(req.validatedQuery.ingredients);
       const tags = getStringsArrayOrUndefined(req.validatedQuery.tags);
-
-      const pizzas = await PizzaService.getPizzas({
-        ingredients,
-        tags
-      });
-      return res.status(200).json({
-        items: pizzas,
-        meta: {
+      console.log(req.query);
+      const [
+        pizzas,
+        ingredientsData,
+        tagsData
+      ] = await Promise.all([
+        PizzaService.getPizzas({
           ingredients,
-          tags,
+          tags
+        }),
+        PizzaService.getPizzaData({ type: 'ingredient', tags }),
+        PizzaService.getPizzaData({ type: 'tag', ingredients })
+      ]);
+      return res.status(200).json({
+        pizzas,
+        tags: tagsData,
+        ingredients: ingredientsData,
+        meta: {
+          ingredients: ingredients || [],
+          tags: tags || [],
           total: pizzas.length
         }
       });

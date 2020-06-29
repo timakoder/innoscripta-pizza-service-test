@@ -1,0 +1,11 @@
+@mixin slowTransition($property) {
+  transition: $property .5s ease-in-out;
+}
+
+@mixin normalTransition($property) {
+  transition: $property .25s ease-in-out;
+}
+
+@mixin quickTransition($property) {
+  transition: $property .1s ease-in-out;
+}

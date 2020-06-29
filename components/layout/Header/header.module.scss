@@ -1,0 +1,22 @@
+@import '../../../styles/color.scss';
+@import '../../../styles/mixins.scss';
+
+.headerContainer {
+  background: linear-gradient(0deg, rgba(242, 163, 101, 0.9), rgba(242, 163, 101, 0.9)), url(/img/background/pizza-pattern.jpg);
+  padding: 16px 0;
+}
+
+.headerWidgetContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.stickyHeaderContainer {
+  background: $mainColor;
+  padding: 4px 0;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  @include normalTransition(all);
+}

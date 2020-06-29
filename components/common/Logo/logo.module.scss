@@ -1,0 +1,43 @@
+@import '../../../styles/color';
+@import '../../../styles/size';
+@import '../../../styles/mixins';
+
+.root {
+  display: flex;
+}
+
+.textContainer {
+  display: block;
+  line-height: 1.2;
+  margin-left: -7px;
+}
+
+.textContainer h1 {
+  margin: 0;
+  text-align: right;
+  font-size: $titleSize;
+}
+
+.textContainerSmall {
+  margin-left: -5px;
+}
+
+.textContainerSmall h1 {
+  font-size: $textSize;
+}
+
+.main {
+  color: $mainColor;
+}
+
+.white {
+  color: $white;
+}
+
+.dark {
+  color: $dark;
+}
+
+.icon {
+  @include slowTransition(transform);
+}
