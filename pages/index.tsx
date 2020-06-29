@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Layout from '../components/layout';
+import Main from '../components/layout/Main';
 
 const Home: React.FC = () => <Layout>
-  INDEX PAGE
+  <Main/>
 </Layout>
 
 export default Home;

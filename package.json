@@ -8,6 +8,7 @@
     "start": "next start -p $PORT"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.4.0",
     "@types/joi": "^14.3.4",
     "classnames": "^2.2.6",
     "gray-matter": "^4.0.2",
@@ -15,16 +16,25 @@
     "knex": "^0.21.1",
     "next": "9.3.5",
     "pg": "^8.2.1",
+    "qs": "^6.9.4",
     "react": "16.13.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "react-redux": "^7.2.0"
   },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/knex": "^0.16.1",
     "@types/node": "^14.0.13",
     "@types/react": "^16.9.38",
+    "@types/react-redux": "^7.1.9",
+    "@zeit/next-sass": "^1.0.1",
+    "axios": "^0.19.2",
+    "node-sass": "^4.14.1",
     "postcss-flexbugs-fixes": "^4.2.1",
+    "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
-    "tailwindcss": "^1.4.6",
+    "postcss-scss": "^2.1.1",
+    "sass": "^1.26.9",
     "typescript": "^3.9.5"
   }
 }

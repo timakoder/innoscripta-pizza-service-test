@@ -1,0 +1,14 @@
+@import '../../../styles/color.scss';
+@import '../../../styles/size.scss';
+
+.root {
+  margin-top: auto;
+  background: $dark;
+  padding: 16px 0;
+}
+
+.copyright {
+  color: $mainColor;
+  text-align: center;
+  margin-left: 16px; 
+}

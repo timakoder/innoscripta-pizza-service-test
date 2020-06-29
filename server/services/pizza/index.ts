@@ -92,7 +92,7 @@ const groupPizzas = (pizzas: PizzaDBSchema[]): Pizza[] => {
     }))
 }
 
-const buildPizzaIDsQuery = (names: string[], dataTable: string) => {
+const buildPizzaIDsQuery = (names: string[], dataTable: 'ingredient' | 'tag') => {
   const getIDsQuery = db(dataTable).select('id').whereIn('name', names);
   return db(`pizza_${dataTable}`).select('pizza_id').whereIn(`${dataTable}_id`, getIDsQuery);
 }
@@ -128,4 +128,44 @@ export const getPizzas = async (params: GetPizzaParams): Promise<Pizza[]> => {
   const pizzas = await pizzasQuery;
 
   return groupPizzas(pizzas);
+}
+
+
+export type GetPizzaDataProps = {
+  type: 'tag' | 'ingredient',
+  ingredients?: string[],
+  tags?: string[]
+}
+
+export type PizzaData = {
+  name: string,
+  quantity: number
+}
+
+export const getPizzaData = async (params: GetPizzaDataProps): Promise<PizzaData[]> => {
+  const { type } = params;
+  const pizzaDataTable = `pizza_${type}`;
+
+  let query = db(type)
+    .select<any, PizzaData[]>(
+      `${type}.name`,
+      db.raw('count(*) as quantity')
+    )
+    .innerJoin(pizzaDataTable, `${pizzaDataTable}.${type}_id`, `${type}.id`)
+    .groupBy(`${type}.name`);
+
+  if (params.ingredients) {
+    query = query.whereIn(`${pizzaDataTable}.pizza_id`, buildPizzaIDsQuery(params.ingredients, 'ingredient'));
+  }
+
+  if (params.tags) {
+    query = query.whereIn(`${pizzaDataTable}.pizza_id`, buildPizzaIDsQuery(params.tags, 'tag'));
+  }
+   
+  const data = await query;
+
+  return data.map(d => ({
+    ...d,
+    quantity: +d.quantity
+  }))
 }
