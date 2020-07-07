@@ -77,3 +77,11 @@
 .transparent::after {
   box-shadow: 0 0 3px 3px $mainColor;
 }
+
+.withoutBorder {
+  border: none;
+}
+
+.withoutBorder::after {
+  box-shadow: none;
+}

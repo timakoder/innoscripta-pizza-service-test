@@ -1,7 +1,6 @@
 import React from 'react';
 import styles from './layout.module.scss';
 import Head from 'next/head';
-import cn from 'classnames';
 import { LayoutProps } from './types';
 import Header from './Header';
 import Footer from './Footer';

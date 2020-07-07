@@ -1,0 +1,23 @@
+@import '../../../../styles/size';
+
+.root {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.item {
+  width: 33%;
+  margin-bottom: 24px;
+}
+
+@media (max-width: $tabletWidth) {
+  .item {
+    width: 50%;
+  }
+}
+
+@media (max-width: $smallMobileWidth) {
+  .item {
+    width: 100%;
+  }
+}

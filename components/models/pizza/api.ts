@@ -8,11 +8,13 @@ export type GetPizzaParams = {
   ingredients: string[]
 }
 
-const buildArrayQs = (arr: string[], name: string) =>
-  arr.map(t => `${name}=${t}`).join('&')
-
 export const getPizzas = async (params: GetPizzaParams): Promise<PizzasResponse> => {
   const pizzas = await axiosInstance
-    .get<PizzasResponse>(`pizzas?${buildArrayQs(params.tags, 'tags')}&${buildArrayQs(params.ingredients, 'ingredients')}`);
+    .post<PizzasResponse>('pizzas', {
+      data: {
+        tags: params.tags,
+        ingredients: params.ingredients
+      }
+    });
   return pizzas.data;
 }

@@ -1,0 +1,18 @@
+@import '../../../../../styles/color.scss';
+@import '../../../../../styles/size.scss';
+
+.root {
+  width: calc(100% - 20px);
+  margin: auto;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.title {
+  font-size: $titleSize;
+  color: $mainColor;
+}
+
+.description {
+  color: $dark;
+}

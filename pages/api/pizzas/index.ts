@@ -20,44 +20,43 @@ const getStringsArrayOrUndefined = (str?: string | string[]): string[] | undefin
   return str.length > 0 ? [str] : undefined;
 }
 
-type QueryParams = {
-  ingredients?: string | string[],
-  tags?: string | string[]
+type BodyParams = {
+  ingredients: string[],
+  tags: string[]
 };
 
-const QueryParamsValidationSchema = {
-  ingredients: Joi.alternatives().try(Joi.string().allow(''), Joi.array().allow([]).items(Joi.string())),
-  tags: Joi.alternatives().try(Joi.string().allow(''), Joi.array().allow([]).items(Joi.string()))
+const BodyParamsValidationSchema = {
+  ingredients: Joi.array().allow([]).items(Joi.string()).default([]),
+  tags: Joi.array().allow([]).items(Joi.string()).default([])
 };
 
 export default controllerErrorsHandler<PizzasResponse>(
-  validateRequest<QueryParams>({
-    querySchema: QueryParamsValidationSchema,
-    bodySchema: {}
+  validateRequest<{}, BodyParams>({
+    querySchema: {},
+    bodySchema: BodyParamsValidationSchema
   })(
-    async (req: ValidatedNextApiRequest<QueryParams, {}>, res: NextApiResponse<PizzasResponse>) => {
-      const ingredients = getStringsArrayOrUndefined(req.validatedQuery.ingredients);
-      const tags = getStringsArrayOrUndefined(req.validatedQuery.tags);
-      console.log(req.query);
+    async (req: ValidatedNextApiRequest<{}, BodyParams>, res: NextApiResponse<PizzasResponse>) => {
       const [
         pizzas,
         ingredientsData,
         tagsData
       ] = await Promise.all([
         PizzaService.getPizzas({
-          ingredients,
-          tags
+          ingredients: req.validatedBody.ingredients,
+          tags: req.validatedBody.tags
         }),
-        PizzaService.getPizzaData({ type: 'ingredient', tags }),
-        PizzaService.getPizzaData({ type: 'tag', ingredients })
+        PizzaService.getPizzaData({ type: 'ingredient', tags: req.validatedBody.tags, ingredients: [] }),
+        PizzaService.getPizzaData({ type: 'tag', ingredients: req.validatedBody.ingredients, tags: [] })
       ]);
       return res.status(200).json({
         pizzas,
         tags: tagsData,
         ingredients: ingredientsData,
         meta: {
-          ingredients: ingredients || [],
-          tags: tags || [],
+          ingredients: req.validatedBody.ingredients
+            .filter(i => ingredientsData.find(ing => ing.name === i)),
+          tags: req.validatedBody.tags
+            .filter(t => tagsData.find(tag => tag.name === t)),
           total: pizzas.length
         }
       });

@@ -4,6 +4,7 @@ import { RootState } from '../../rootReducer';
 import { useSelector, useDispatch } from 'react-redux';
 import { getPizzas, GetPizzasType, GetPizzaParams } from './api';
 import { PizzaData } from '../../../server/services/pizza';
+import { setQueryParams, getQueryParams } from '../../utils';
 
 export type SelectedPizzaData = PizzaData & { selected: boolean };
 
@@ -58,9 +59,22 @@ export const actions = pizzasSlice.actions;
 
 export default pizzasSlice.reducer;
 
-export const fetchPizzas = (params: GetPizzaParams): AppThunk => async (dispatch) => {
+export const fetchPizzas = (params?: GetPizzaParams): AppThunk => async (dispatch) => {
   dispatch(actions.fetchPizzasStart());
-  const pizzas = await getPizzas(params);
+
+  let searchParams: GetPizzaParams;
+  if (params === undefined) {
+    const queryParams = getQueryParams<GetPizzaParams>();
+    searchParams = {
+      tags: queryParams.tags || [],
+      ingredients: queryParams.ingredients || []
+    }
+  } else {
+    searchParams = params;
+    setQueryParams(params);
+  }
+
+  const pizzas = await getPizzas(searchParams);
   dispatch(actions.setPizzas(pizzas));
 }
 
@@ -69,6 +83,6 @@ export const usePizzas = () => {
   const pizzas = useSelector((state: RootState) => state.pizzas);
   return {
     pizzas,
-    dispatch
+    fetchPizzas: (params?: GetPizzaParams) => dispatch(fetchPizzas(params))
   }
 }

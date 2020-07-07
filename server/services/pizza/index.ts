@@ -2,8 +2,8 @@ import db from '../../db';
 import Knex from 'knex';
 
 export type GetPizzaParams = {
-  ingredients?: string[]
-  tags?: string[]
+  ingredients: string[]
+  tags: string[]
 }
 
 export type PizzaSize = 'small' | 'medium' | 'large'
@@ -117,11 +117,11 @@ export const getPizzas = async (params: GetPizzaParams): Promise<Pizza[]> => {
     .leftJoin('pizza_tag', 'pizza_tag.pizza_id', 'pizza.id')
     .leftJoin('tag', 'tag.id', 'pizza_tag.tag_id');
   
-  if (params.ingredients) {
+  if (params.ingredients.length > 0) {
     pizzasQuery = pizzasQuery.whereIn('pizza.id', buildPizzaIDsQuery(params.ingredients, 'ingredient'));
   }
 
-  if (params.tags) {
+  if (params.tags.length > 0) {
     pizzasQuery = pizzasQuery.whereIn('pizza.id', buildPizzaIDsQuery(params.tags, 'tag'));
   }
 
@@ -133,8 +133,8 @@ export const getPizzas = async (params: GetPizzaParams): Promise<Pizza[]> => {
 
 export type GetPizzaDataProps = {
   type: 'tag' | 'ingredient',
-  ingredients?: string[],
-  tags?: string[]
+  ingredients: string[],
+  tags: string[]
 }
 
 export type PizzaData = {
@@ -152,13 +152,14 @@ export const getPizzaData = async (params: GetPizzaDataProps): Promise<PizzaData
       db.raw('count(*) as quantity')
     )
     .innerJoin(pizzaDataTable, `${pizzaDataTable}.${type}_id`, `${type}.id`)
-    .groupBy(`${type}.name`);
+    .groupBy(`${type}.name`)
+    .orderBy('quantity', 'desc');
 
-  if (params.ingredients) {
+  if (params.ingredients.length > 0) {
     query = query.whereIn(`${pizzaDataTable}.pizza_id`, buildPizzaIDsQuery(params.ingredients, 'ingredient'));
   }
 
-  if (params.tags) {
+  if (params.tags.length > 0) {
     query = query.whereIn(`${pizzaDataTable}.pizza_id`, buildPizzaIDsQuery(params.tags, 'tag'));
   }
    

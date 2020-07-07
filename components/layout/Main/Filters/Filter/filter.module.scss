@@ -1,0 +1,32 @@
+@import '../../../../../styles/color';
+
+.root {
+  margin-bottom: 16px;
+}
+
+.itemsContainer {
+  display: block;
+}
+
+.itemsContainer button {
+  text-transform: capitalize;
+}
+
+.itemsContainer button img {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
+  vertical-align: -4px;
+}
+
+.title {
+  font-weight: 500;
+  color: $dark;
+  margin-bottom: 8px;
+}
+
+.searchBox {
+  max-width: 500px;
+  margin-bottom: 16px;
+}

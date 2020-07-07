@@ -111,7 +111,7 @@ export const validateRequest = <T = {}, K = {}>(params: ValidateRequestParams<T,
   (fn: (req: ValidatedNextApiRequest<T, K>, res: NextApiResponse) => Promise<void>) =>
     async (req: ValidatedNextApiRequest<T, K>, res: NextApiResponse) => {
       const validatedQuery = joiValidate<T>(req.query as unknown as T, params.querySchema);
-      const validatedBody = joiValidate<K>(req.query as unknown as K, params.bodySchema);
+      const validatedBody = joiValidate<K>(((req.body && req.body.data) || {}) as unknown as K, params.bodySchema);
 
       req.validatedQuery = validatedQuery;
       req.validatedBody = validatedBody;

@@ -5,13 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start -p $PORT"
+    "start": "NODE_ENV=production knex migrate:latest && NODE_ENV=production knex seed:run && next start -p $PORT"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
     "@types/joi": "^14.3.4",
+    "axios": "^0.19.2",
     "classnames": "^2.2.6",
-    "gray-matter": "^4.0.2",
     "joi": "^14.3.1",
     "knex": "^0.21.1",
     "next": "9.3.5",
@@ -28,7 +28,6 @@
     "@types/react": "^16.9.38",
     "@types/react-redux": "^7.1.9",
     "@zeit/next-sass": "^1.0.1",
-    "axios": "^0.19.2",
     "node-sass": "^4.14.1",
     "postcss-flexbugs-fixes": "^4.2.1",
     "postcss-loader": "^3.0.0",

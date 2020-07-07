@@ -1,10 +1,10 @@
 import React, { useState, useCallback } from 'react';
 import styles from './logo.module.scss';
 import PizzaSliceIcon from '../../icons/PizzaSlice';
+import { Color } from '../types';
 import cn from 'classnames';
 
-export type LogoProps = {
-  color?: 'main' | 'white' | 'dark',
+export type LogoProps = Color & {
   small?: boolean
 }
 

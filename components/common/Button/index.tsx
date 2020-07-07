@@ -1,16 +1,10 @@
 import React from 'react';
 import cn from 'classnames';
+import { Default, Box, Color, Size } from '../types';
 import styles from './button.module.scss';
 
-export type ButtonProps = {
-  className?: string,
-  color?: 'main' | 'white' | 'dark' | 'transparent',
-  size?: 'small' | 'medium' | 'large',
-  marginTop?: number,
-  marginRight?: number,
-  marginBottom?: number,
-  marginLeft?: number,
-  [k: string]: any
+export type ButtonProps = Default & Box & Color & Size & {
+  withoutBorder?: boolean
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -18,13 +12,14 @@ const Button: React.FC<ButtonProps> = ({
   className,
   color = 'main',
   size = 'medium',
+  withoutBorder = false,
   marginTop = 0,
   marginLeft = 0,
   marginRight = 0,
   marginBottom = 0,
   ...props
 }) => <button
-  className={cn(styles.root, styles[color], styles[size])}
+  className={cn(styles.root, styles[color], styles[size], withoutBorder && styles.withoutBorder)}
   style={{
     marginTop,
     marginLeft,
