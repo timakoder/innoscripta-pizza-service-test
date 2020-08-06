@@ -3,11 +3,12 @@
 .root {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 1rem;
 }
 
 .item {
   width: 33%;
-  margin-bottom: 24px;
+  margin-bottom: 36px;
 }
 
 @media (max-width: $tabletWidth) {

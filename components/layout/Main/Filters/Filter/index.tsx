@@ -3,7 +3,7 @@ import { SelectedPizzaData } from '../../../../models/pizza';
 import styles from './filter.module.scss';
 import Button from '../../../../common/Button';
 import Input from '../../../../common/Input';
-import { debounce } from '../../../../utils';
+import { debounce, buildPathToIcon } from '../../../../utils';
 
 export type FilterProps = {
   items: SelectedPizzaData[],
@@ -30,7 +30,7 @@ const Filter: React.FC<FilterProps> = ({
     setItemsToShow(items);
   }, [items, query]);
 
-  const searchCallback = useCallback(debounce(300)((q: string) => setQuery(q)), [])
+  const searchCallback = useCallback(debounce(300)((q: string) => setQuery(q.trim().toLowerCase())), [])
 
   return <div className={styles.root}>
     <p className={styles.title}>{name}:</p>
@@ -44,7 +44,7 @@ const Filter: React.FC<FilterProps> = ({
           marginBottom={12}
           size="small"
           key={i}>
-            <img src={`/img/icons/${d.name.trim().replace(/ /g, '_')}.svg`}/>
+            <img src={buildPathToIcon(d.name)}/>
             <span>{d.name} ({d.quantity})</span>
         </Button>)
       }

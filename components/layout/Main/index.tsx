@@ -15,6 +15,9 @@ const Main: React.FC = () => {
   }, []);
 
   return <main className={styles.root}>
+    <div className={styles.overlay}>
+      
+    </div>
     <div className={utilStyles.fullPageContainer}>
       <Filters/>
       <PizzaList/>
