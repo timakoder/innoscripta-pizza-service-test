@@ -1,0 +1,21 @@
+@import '../../../../../../styles/color.scss';
+@import '../../../../../../styles/size.scss';
+@import '../../../../../../styles/mixins.scss';
+
+.root {
+  @include overlay();
+  padding: 10px;
+}
+
+.ingredientItem {
+  display: inline-block;
+}
+
+.ingredientItem span {
+  color: $white;
+}
+
+.ingredientIcon {
+  margin-right: 5px;
+  vertical-align: -3px;
+}

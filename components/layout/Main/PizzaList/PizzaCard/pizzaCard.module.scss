@@ -8,7 +8,9 @@
   border-radius: 10px;
   overflow: hidden;
   height: 100%;
-  @include quickTransition(box-shadow);
+  cursor: pointer;
+  @include normalTransition(box-shadow);
+  position: relative;
 }
 
 .root:hover {
@@ -26,4 +28,29 @@
 
 .description {
   color: $dark;
+}
+
+.tagsContainer {
+  border-right: 2px solid $mainColor;
+  margin-right: 8px;
+}
+
+.meta { 
+  display: inline-block;
+}
+
+.icon {
+  position: relative;
+  margin-right: 8px;
+}
+
+.overlay {
+  opacity: 0;
+  @include normalTransition(opacity);
+}
+
+.root:hover {
+  .overlay {
+    opacity: 1;
+  }
 }

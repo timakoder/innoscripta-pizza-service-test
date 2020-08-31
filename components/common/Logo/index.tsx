@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import styles from './logo.module.scss';
-import PizzaSliceIcon from '../../icons/PizzaSlice';
+import Icon from '../Icon';
 import { Color } from '../types';
 import cn from 'classnames';
 
@@ -18,9 +18,10 @@ const Logo: React.FC<LogoProps> = ({ color = 'main', small = false }) => {
   return <div onMouseEnter={rotateImage} className={cn({
     [styles.root]: true
   })}>
-    <PizzaSliceIcon
+    <Icon
+      name="pizza_slice"
       className={styles.icon}
-      small={small}
+      size={small ? 'medium' : 'large'}
       style={{
         transform: `rotate(${degree}deg)`
       }}

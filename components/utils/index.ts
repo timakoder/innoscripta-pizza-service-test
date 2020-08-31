@@ -29,5 +29,3 @@ export const setQueryParams = (params: Object): void => {
 export const getQueryParams = <T>() => {
   return parse(window.location.search.slice(1)) as T;
 }
-
-export const buildPathToIcon = (icon: string): string => `/img/icons/${icon.trim().replace(/ /g, '_')}.svg`;

@@ -5,16 +5,17 @@ import { AppProps } from 'next/app';
 import { GlobalContext } from '../components/utils/context'
 import { isMobile } from '../components/utils';
 import store from '../components/store';
+import { debounce } from '../components/utils';
 
 const App: React.FC<AppProps> = ({ Component, pageProps }) => {
   const [mobile, setMobile] = useState(false);
 
   const windowSizeChangeListener = useCallback(
-    () => {
+    debounce(500)(() => {
       if (isMobile() !== mobile) {
         setMobile(isMobile());
       }
-    },
+    }),
     [mobile]
   );
 

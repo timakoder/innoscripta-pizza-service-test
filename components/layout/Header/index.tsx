@@ -6,26 +6,31 @@ import { useGlobalContext } from '../../utils/hooks';
 import utilStyles from '../../../styles/utils.module.scss';
 import styles from './header.module.scss';
 import cn from 'classnames';
+import { useModalActions } from '../../models/modal';
 
 type HeaderWidgetProps = {
   small: boolean
 }
 
-const HeaderWidget: React.FC<HeaderWidgetProps> = ({ small }) => <div className={cn(utilStyles.fullPageContainer, styles.headerWidgetContainer)}>
-  <div className={styles.logoContainer}>
-    <NextLink href="/">
-      <Logo color="white" small={small}/>
-    </NextLink>
+const HeaderWidget: React.FC<HeaderWidgetProps> = ({ small }) => {
+  const { openLogin } = useModalActions();
+
+  return <div className={cn(utilStyles.fullPageContainer, styles.headerWidgetContainer)}>
+    <div className={styles.logoContainer}>
+      <NextLink href="/">
+        <Logo color="white" small={small}/>
+      </NextLink>
+    </div>
+    <div className={styles.buttonsContainer}>
+      <Button color="main" size={small ? 'small' : 'medium'} onClick={openLogin}>
+        Account
+      </Button>
+      <Button color="main" marginLeft={12} size={small ? 'small' : 'medium'}>
+        Cart
+      </Button>
+    </div>
   </div>
-  <div className={styles.buttonsContainer}>
-    <Button color="main" size={small ? 'small' : 'medium'}>
-      Account
-    </Button>
-    <Button color="main" marginLeft={12} size={small ? 'small' : 'medium'}>
-      Cart
-    </Button>
-  </div>
-</div>
+}
 
 const Header: React.FC = () => {
   const [showStickyHeader, setShowStickyHeader] = useState(false);

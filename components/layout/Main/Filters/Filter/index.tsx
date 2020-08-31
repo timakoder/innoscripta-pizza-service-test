@@ -3,7 +3,8 @@ import { SelectedPizzaData } from '../../../../models/pizza';
 import styles from './filter.module.scss';
 import Button from '../../../../common/Button';
 import Input from '../../../../common/Input';
-import { debounce, buildPathToIcon } from '../../../../utils';
+import Icon from '../../../../common/Icon';
+import { debounce } from '../../../../utils';
 
 export type FilterProps = {
   items: SelectedPizzaData[],
@@ -44,7 +45,7 @@ const Filter: React.FC<FilterProps> = ({
           marginBottom={12}
           size="small"
           key={i}>
-            <img src={buildPathToIcon(d.name)}/>
+            <Icon name={d.name} className={styles.icon}/>
             <span>{d.name} ({d.quantity})</span>
         </Button>)
       }

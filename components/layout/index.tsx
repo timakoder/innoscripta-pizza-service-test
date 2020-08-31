@@ -4,11 +4,13 @@ import Head from 'next/head';
 import { LayoutProps } from './types';
 import Header from './Header';
 import Footer from './Footer';
+import Modal from '../modal';
 
 const Layout: React.FC<LayoutProps> = ({
   children,
   pageTitle = 'Innoscripta Pizza'
 }) => <div className={styles.container}>
+  <Modal/>
   <Head>
     <title>{pageTitle}</title>
     <link rel="icon" href="/favicon.ico" />
@@ -16,7 +18,7 @@ const Layout: React.FC<LayoutProps> = ({
       name="description"
       content="Innoscripta test project for pizza ordering"
     />
-    <meta
+    <meta  
       name="viewport"
       content="width=device-width, initial-scale=1.0"
     />
