@@ -10,7 +10,7 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
     "@types/joi": "^14.3.4",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "joi": "^14.3.1",
     "knex": "^0.21.1",
